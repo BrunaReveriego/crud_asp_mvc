@@ -15,7 +15,7 @@ namespace ContatoWeb.Models
 
         public ContatoModel()
         {
-            string strConn = "Data Source=localhost;Initial Catalog=BDContato;Integrated Security=true";
+            string strConn = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=BDContato;Integrated Security=true";
             connection = new SqlConnection(strConn);
             connection.Open();
         }
@@ -80,6 +80,15 @@ namespace ContatoWeb.Models
 
         }
 
+        public void Delete(int id)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.CommandText = @"DELETE FROM Contato WHERE IdContato=@id";
 
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+        }
     }
 }
